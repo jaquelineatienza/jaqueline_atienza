@@ -1,5 +1,6 @@
 import { createJwt } from "../helpers/createJwt.js";
 import { createUser, getUserByCredentials } from "../models/user.model.js";
+import { validationResult } from "express-validator";
 
 export const signInCtrl = async (req, res) => {
   const { username, password } = req.body;
@@ -22,7 +23,7 @@ export const signInCtrl = async (req, res) => {
     const user = rows[0];
 
     // Generar token JWT
-    const token = await generarJwt(user.id);
+    const token = await createJwt(user.id);
 
     // Almacenar el token en la sesión del servidor
     req.session.token = token;
@@ -45,7 +46,13 @@ export const signInCtrl = async (req, res) => {
 };
 //registro
 export const signUpCtrl = async (req, res) => {
+  const { username, contraseña } = req.body;
   try {
+    const errores = validationResult(req);
+    if (!errores.isEmpty()) {
+      return res.status(400).json(errores);
+    }
+
     // Establecer conexión con la base de datos
     const connection = await connectDB();
 
@@ -54,6 +61,9 @@ export const signUpCtrl = async (req, res) => {
       "SELECT * FROM users WHERE username = ?",
       [username]
     );
+
+    // Encriptar la contraseña
+    const password = bcrypt.hashSync(contraseña, 10);
 
     if (existUser.length > 0) {
       return res
