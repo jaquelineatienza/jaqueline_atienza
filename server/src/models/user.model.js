@@ -29,12 +29,14 @@ export const getUserById = async (id) => {
 
 // Función para obtener usuario por credenciales
 export const getUserByCredentials = async (email, password) => {
+  //busca al usuario
   const findedUser = usersCollection.find((user) => user.email === email);
 
   if (!findedUser) {
     return null;
   }
 
+  //verifica la contraseña
   const isPasswordMatch = await compare(password, findedUser.password);
 
   if (isPasswordMatch) {

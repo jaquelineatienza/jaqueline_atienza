@@ -20,6 +20,7 @@ export const getOrders = (userId) => {
 };
 
 // ! FALTA IMPLEMENTAR (NO SE USA EN EL PROYECTO)
+//obtener las ordenes por id
 export const getOrderById = (id, userId) => {
   return (
     ordersCollection.find(
@@ -29,6 +30,7 @@ export const getOrderById = (id, userId) => {
 };
 
 // ! FALTA IMPLEMENTAR (NO SE USA EN EL PROYECTO)
+//eliminar orden
 export const deleteOrderById = (id, userId) => {
   const deletedOrder = ordersCollection.find(
     (coffee) => coffee.id === id && coffee.userId === userId
