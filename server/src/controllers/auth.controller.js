@@ -12,7 +12,7 @@ export const signInCtrl = async (req, res) => {
     // Realizar consulta para verificar el usuario
     const [rows] = await connection.execute(
       "SELECT * FROM users WHERE username = ? AND password = ?",
-      [username, password]
+      [password, email]
     );
 
     // Verificar si se encontró el usuario
@@ -73,8 +73,8 @@ export const signUpCtrl = async (req, res) => {
 
     // Insertar el nuevo usuario en la base de datos
     const [result] = await connection.execute(
-      "INSERT INTO users (username, password) VALUES (?, ?)",
-      [username, password]
+      "INSERT INTO users (username,email password) VALUES (?, ?)",
+      [username, password, email]
     );
 
     if (result.affectedRows === 1) {

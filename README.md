@@ -160,3 +160,10 @@ Agradecemos de antemano su dedicación y profesionalismo en este proyecto.
 Atentamente,
 
 Departamento de Desarrollo de CheCoffee
+
+//como implementar la bd
+crear la base de datos
+db_system
+con las siguientes tablas
+pedidos:nombre(string),id(numbre),idUser(number),
+user:username(string),id(number),password(string),email(string)
